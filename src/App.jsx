@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import LoginForm from './components/Login/LoginForm';
 import Sidebar from './components/Layout/Sidebar';
 import Header from './components/Layout/Header';
+import UpdatePrompt from './components/UpdatePrompt/UpdatePrompt';
 import Dashboard from './pages/Dashboard';
 import Usuarios from './pages/Usuarios';
 import Productos from './pages/Productos';
@@ -46,6 +47,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
+        <UpdatePrompt />
         <Routes>
           <Route path="/login" element={<LoginForm />} />
           
