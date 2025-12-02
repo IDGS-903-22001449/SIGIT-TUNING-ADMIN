@@ -204,6 +204,34 @@ table tbody tr:hover {
     color: #ff9800;
 }
 
+/* Responsive adjustments for modal */
+@media (max-width: 768px) {
+    .productos-page {
+        padding: 10px;
+    }
+    
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .btn {
+        flex: 1;
+        justify-content: center;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 10px;
+    }
+}
+
+
 .action-buttons {
     display: flex;
     gap: 8px;

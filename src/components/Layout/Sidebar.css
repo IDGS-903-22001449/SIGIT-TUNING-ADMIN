@@ -136,11 +136,42 @@
 
 @media (max-width: 768px) {
     .sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
+        width: 70px;
+        transform: none; /* Reset transform */
     }
 
-    .sidebar.open {
-        transform: translateX(0);
+    .sidebar-header {
+        padding: 20px 0;
+        justify-content: center;
+    }
+
+    .sidebar-header h2 {
+        display: none;
+    }
+
+    .sidebar-item {
+        padding: 15px 0;
+        justify-content: center;
+    }
+
+    .sidebar-label {
+        display: none;
+    }
+
+    .sidebar-item::before {
+        display: none;
+    }
+
+    .sidebar-footer {
+        padding: 10px;
+    }
+
+    .btn-logout {
+        padding: 10px 0;
+        justify-content: center;
+    }
+
+    .btn-logout span {
+        display: none;
     }
 }
