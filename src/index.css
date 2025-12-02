@@ -11,6 +11,15 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Variables para alturas seguras en móviles */
+  --header-height: 60px;
+  --sidebar-width: 250px;
+}
+
+html {
+  /* Evita el rebote elástico en iOS que a veces rompe el layout */
+  overscroll-behavior-y: none; 
 }
 
 a {
@@ -27,11 +36,24 @@ body {
   min-width: 320px;
   min-height: 100vh;
   overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent; /* Quita el flash azul al tocar en Android */
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: clamp(1.25rem, 5vw, 2.5rem);
   line-height: 1.1;
+}
+
+h2 { font-size: clamp(1.1rem, 4vw, 2rem); }
+p  { font-size: clamp(0.85rem, 2vw, 1rem); }
+
+button, 
+input, 
+select, 
+.btn {
+  /* Tamaño mínimo para dedos (Touch Target) */
+  min-height: 44px; 
+  touch-action: manipulation; /* Mejora la respuesta al toque */
 }
 
 button {
@@ -64,4 +86,39 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* --- REGLAS MAESTRAS DE RESPONSIVIDAD --- */
+
+/* 1. Ajuste del modelo de caja para evitar desbordes */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Imágenes y videos nunca más anchos que la pantalla */
+img, video, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 3. Tipografía fluida: Se hace más pequeña en móvil automáticamente */
+html {
+  font-size: 16px; /* Base escritorio */
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px; /* Base móvil: todo se reduce un poco */
+  }
+  
+  /* Reducir paddings globales en móvil */
+  .p-4, .padding-large { padding: 1rem !important; }
+  .m-4, .margin-large { margin: 1rem !important; }
+}
+
+/* 4. Contenedores que no se desborden */
+.container, .main-content, #root {
+  width: 100%;
+  max-width: 100%; /* Cambiado de 100vw a 100% para evitar scroll por barra vertical */
+  overflow-x: hidden; /* Cortar lo que sobre horizontalmente */
 }

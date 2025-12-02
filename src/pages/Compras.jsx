@@ -70,11 +70,11 @@ const Compras = () => {
           <tbody>
             {ordenes.map((orden) => (
               <tr key={orden.purchaseOrderID} style={{borderBottom: '1px solid #333'}}>
-                <td style={{padding: '15px', color: '#00BCD4', fontWeight: 'bold'}}>{orden.numeroOrden}</td>
-                <td style={{padding: '15px'}}>{orden.proveedorNombre}</td>
-                <td style={{padding: '15px'}}>{new Date(orden.fechaOrden).toLocaleDateString()}</td>
-                <td style={{padding: '15px', color: '#4caf50', fontWeight: 'bold'}}>${orden.total.toFixed(2)}</td>
-                <td style={{padding: '15px', textAlign: 'center'}}>
+                <td data-label="Orden #" style={{padding: '15px', color: '#00BCD4', fontWeight: 'bold'}}>{orden.numeroOrden}</td>
+                <td data-label="Proveedor" style={{padding: '15px'}}>{orden.proveedorNombre}</td>
+                <td data-label="Fecha" style={{padding: '15px'}}>{new Date(orden.fechaOrden).toLocaleDateString()}</td>
+                <td data-label="Total" style={{padding: '15px', color: '#4caf50', fontWeight: 'bold'}}>${orden.total.toFixed(2)}</td>
+                <td data-label="Estatus" style={{padding: '15px', textAlign: 'center'}}>
                   <span style={{
                       padding: '5px 10px', 
                       borderRadius: '20px', 
@@ -86,7 +86,7 @@ const Compras = () => {
                     {orden.estatus}
                   </span>
                 </td>
-                <td style={{padding: '15px', textAlign: 'center'}}>
+                <td data-label="Acciones" style={{padding: '15px', textAlign: 'center'}}>
                   {/* Botón visible SOLO si está Pendiente */}
                   {orden.estatus === 'Pendiente' && (
                     <button 

@@ -4,6 +4,21 @@
     margin: 0 auto;
 }
 
+@media (max-width: 768px) {
+    .dashboard {
+        padding: 10px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr; /* Una columna en móvil */
+        gap: 15px;
+    }
+    
+    .stat-card {
+        padding: 15px;
+    }
+}
+
 .page-title {
     font-size: 32px;
     margin-bottom: 30px;

@@ -10,6 +10,17 @@
     z-index: 100;
 }
 
+@media (max-width: 768px) {
+    .header {
+        padding: 10px 15px;
+        gap: 10px;
+    }
+    
+    .header-search {
+        display: none; /* Ocultar búsqueda en móvil si ocupa mucho espacio, o reducirla */
+    }
+}
+
 .header-search {
     flex: 1;
     max-width: 600px;

@@ -9,6 +9,17 @@
     flex-direction: column;
     z-index: 1000;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
 }
 
 .sidebar-header {

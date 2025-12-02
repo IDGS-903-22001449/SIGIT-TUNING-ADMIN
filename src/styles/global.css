@@ -13,6 +13,8 @@ body {
     background: #1a1a1a;
     color: #ffffff;
     overflow-x: hidden;
+    word-break: break-word; /* Evita que palabras largas rompan el layout */
+    overflow-wrap: break-word;
 }
 
 :root {
@@ -32,6 +34,8 @@ body {
 .app-container {
     display: flex;
     min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden; /* Asegura que el contenedor principal no desborde */
 }
 
 .main-content {
@@ -39,12 +43,14 @@ body {
     margin-left: var(--sidebar-width);
     padding: 20px;
     transition: margin-left 0.3s ease;
+    width: 100%; /* Crítico para que no se desborde */
 }
 
 @media (max-width: 768px) {
     .main-content {
-        margin-left: 70px;
+        margin-left: 0 !important;
         padding: 10px;
+        padding-top: 70px; /* Espacio para el header/botón menú */
     }
 }
 
@@ -106,6 +112,12 @@ body {
     padding: 20px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .card {
+        padding: 15px;
+    }
 }
 
 .card:hover {
@@ -310,7 +322,7 @@ button:disabled {
 /* Asegura que la tabla mantenga su estructura y no se aplaste */
 .table-responsive table {
   width: 100%;
-  min-width: 600px; /* Fuerza un ancho mínimo para activar el scroll */
+  /* min-width: 600px;  <-- ELIMINADO: Causaba scroll horizontal en móviles */
   border-collapse: collapse;
 }
 
@@ -391,7 +403,7 @@ button:disabled {
 table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 800px; /* Force horizontal scroll on mobile */
+    /* min-width: 800px; <-- ELIMINADO: Causaba scroll horizontal */
 }
 
 th, td {
@@ -413,4 +425,124 @@ td {
 
 tr:hover {
     background-color: #333;
+}
+
+/* --- MODAL RESPONSIVO --- */
+/* Fondo oscuro del modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0; /* top, right, bottom, left: 0 */
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center; /* Centrado vertical */
+  justify-content: center; /* Centrado horizontal */
+  z-index: 1000;
+  padding: 1rem; /* Margen de seguridad */
+}
+
+/* La caja del modal */
+.modal-content {
+  background: #1e1e1e; /* Dark theme background */
+  width: 100%;
+  max-width: 600px; /* Ancho máximo en escritorio */
+  max-height: 90vh; /* Nunca más alto que el 90% de la pantalla */
+  overflow-y: auto; /* Scroll interno si el contenido es muy largo */
+  border-radius: 12px;
+  padding: 1.5rem;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  color: var(--text-primary);
+}
+
+/* Ajuste para pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 1rem;
+    max-height: 95vh;
+  }
+  
+  /* Botones del modal en columna para que sean fáciles de tocar */
+  .modal-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .modal-actions button {
+    width: 100%;
+  }
+}
+
+/* --- TRANSFORMACIÓN DE TABLA A TARJETA (Móvil) --- */
+@media (max-width: 768px) {
+  /* Forzamos a la tabla a comportarse como bloques */
+  .table-responsive table, 
+  .table-responsive thead, 
+  .table-responsive tbody, 
+  .table-responsive th, 
+  .table-responsive td, 
+  .table-responsive tr {
+    display: block;
+  }
+
+  /* Ocultamos los encabezados de la tabla (se verán dentro de cada tarjeta) */
+  .table-responsive thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .table-responsive tr {
+    margin-bottom: 1rem;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: #252525;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    padding: 0.5rem;
+  }
+
+  .table-responsive td {
+    /* Hacemos que cada celda sea una fila dentro de la tarjeta */
+    border: none;
+    border-bottom: 1px solid #333;
+    position: relative;
+    padding-left: 50% !important; /* Espacio para la etiqueta */
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    text-align: right; /* Datos a la derecha */
+    min-height: 35px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .table-responsive td:last-child {
+    border-bottom: 0;
+  }
+
+  /* 
+     IMPORTANTE: Esto intenta poner etiquetas automáticamente. 
+     Si tus celdas no tienen el atributo data-label, 
+     se verán los datos alineados a la derecha.
+  */
+  .table-responsive td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 10px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
+    color: var(--primary);
+  }
+  
+  /* Ajuste específico para botones de acción en tablas */
+  .table-responsive td button {
+    width: auto;
+    margin-top: 0;
+  }
+  
+  .table-responsive .action-buttons {
+      justify-content: flex-end;
+  }
 }
