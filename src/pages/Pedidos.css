@@ -358,6 +358,10 @@
 }
 
 @media (max-width: 768px) {
+    .pedidos-page {
+        padding: 10px;
+    }
+
     .pedidos-grid {
         grid-template-columns: 1fr;
     }
@@ -365,12 +369,23 @@
     .page-header {
         flex-direction: column;
         gap: 15px;
-        align-items: flex-start;
+        align-items: stretch;
+    }
+    
+    .btn-refresh {
+        justify-content: center;
     }
 
     .filter-tabs {
         overflow-x: auto;
         flex-wrap: nowrap;
         padding-bottom: 10px;
+        -webkit-overflow-scrolling: touch;
+        margin-right: -10px; /* Compensate for padding */
+    }
+    
+    .filter-tab {
+        white-space: nowrap;
+        flex-shrink: 0;
     }
 }

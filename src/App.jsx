@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import LoginForm from './components/Login/LoginForm';
@@ -30,9 +31,25 @@ const PrivateRoute = ({ children }) => {
 };
 
 const AppLayout = ({ children }) => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
     <div className="app-container">
-      <Sidebar />
+      <button className="menu-toggle-btn" onClick={toggleSidebar}>
+        ☰
+      </button>
+
+      <div 
+        className={`sidebar-overlay ${isSidebarOpen ? 'open' : ''}`} 
+        onClick={() => setIsSidebarOpen(false)}
+      />
+
+      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+      
       <div className="main-content">
         <Header />
         <div className="content-wrapper">

@@ -282,33 +282,71 @@ const Productos = () => {
         </div>
       </div>
 
-      <div className="filter-tabs">
-        <button
-          className={`filter-tab ${!categoriaSeleccionada ? 'active' : ''}`}
-          onClick={() => setCategoriaSeleccionada(null)}
-        >
-          Todas
-        </button>
-        {categorias.map((cat) => (
-          <div key={cat.categoryID} className="filter-tab-wrapper">
-            <button
-              className={`filter-tab ${categoriaSeleccionada === cat.categoryID ? 'active' : ''}`}
-              onClick={() => setCategoriaSeleccionada(cat.categoryID)}
-            >
-              {cat.nombre}
-            </button>
-            <button
-              className="delete-category-btn"
-              onClick={() => handleDeleteCategory(cat.categoryID)}
-              title="Eliminar categoría"
-            >
-              <Icons.Trash />
-            </button>
+      <div className="categories-section">
+        {/* Vista de Escritorio: Tabs */}
+        <div className="filter-tabs desktop-only">
+          <button
+            className={`filter-tab ${!categoriaSeleccionada ? 'active' : ''}`}
+            onClick={() => setCategoriaSeleccionada(null)}
+          >
+            Todas
+          </button>
+          {categorias.map((cat) => (
+            <div key={cat.categoryID} className="filter-tab-wrapper">
+              <button
+                className={`filter-tab ${categoriaSeleccionada === cat.categoryID ? 'active' : ''}`}
+                onClick={() => setCategoriaSeleccionada(cat.categoryID)}
+              >
+                {cat.nombre}
+              </button>
+              <button
+                className="delete-category-btn"
+                onClick={() => handleDeleteCategory(cat.categoryID)}
+                title="Eliminar categoría"
+              >
+                <Icons.Trash />
+              </button>
+            </div>
+          ))}
+        </div>
+
+        {/* Vista Móvil: Select Desplegable */}
+        <div className="mobile-category-select mobile-only">
+          <label htmlFor="category-select">Filtrar por Categoría:</label>
+          <div className="select-row">
+            <div className="select-wrapper">
+              <select
+                id="category-select"
+                className="category-select"
+                value={categoriaSeleccionada || ''}
+                onChange={(e) => setCategoriaSeleccionada(e.target.value || null)}
+              >
+                <option value="">Todas las categorías</option>
+                {categorias.map((cat) => (
+                  <option key={cat.categoryID} value={cat.categoryID}>
+                    {cat.nombre}
+                  </option>
+                ))}
+              </select>
+              <div className="select-arrow">
+                <Icons.ChevronDown />
+              </div>
+            </div>
+            
+            {categoriaSeleccionada && (
+              <button
+                className="mobile-delete-btn"
+                onClick={() => handleDeleteCategory(categoriaSeleccionada)}
+                title="Eliminar categoría seleccionada"
+              >
+                <Icons.Trash />
+              </button>
+            )}
           </div>
-        ))}
+        </div>
       </div>
 
-      <div className="table-container">
+      <div className="table-responsive">
         <table>
           <thead>
             <tr>
@@ -324,7 +362,7 @@ const Productos = () => {
           <tbody>
             {productos.map((producto) => (
               <tr key={producto.productID}>
-                <td style={{ width: '70px', padding: '0.5rem' }}>
+                <td data-label="Img" style={{ width: '70px', padding: '0.5rem' }}>
                   <div className="prod-img-cell">
                     {producto.imagenURL ? (
                       <img 
@@ -342,16 +380,16 @@ const Productos = () => {
                     )}
                   </div>
                 </td>
-                <td><strong>{producto.nombre}</strong></td>
-                <td>{producto.categoriaNombre}</td>
-                <td>{producto.marca} {producto.modelo}</td>
-                <td className="price-cell">${producto.precio.toFixed(2)}</td>
-                <td>
+                <td data-label="Nombre"><strong>{producto.nombre}</strong></td>
+                <td data-label="Categoría">{producto.categoriaNombre}</td>
+                <td data-label="Marca/Modelo">{producto.marca} {producto.modelo}</td>
+                <td data-label="Precio" className="price-cell">${producto.precio.toFixed(2)}</td>
+                <td data-label="Stock">
                   <span className={`stock-badge ${producto.stock < 5 ? 'low' : 'ok'}`}>
                     {producto.stock} u.
                   </span>
                 </td>
-                <td>
+                <td data-label="Acciones">
                   <div className="action-buttons">
                     <button className="btn-icon edit" onClick={() => openModal(producto)}><Icons.Edit /></button>
                     <button className="btn-icon delete" onClick={() => handleDelete(producto.productID)}><Icons.Trash /></button>

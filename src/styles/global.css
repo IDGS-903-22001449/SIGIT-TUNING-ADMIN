@@ -298,6 +298,86 @@ button:disabled {
 }
 
 /* Global Table Styles */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+
+/* Asegura que la tabla mantenga su estructura y no se aplaste */
+.table-responsive table {
+  width: 100%;
+  min-width: 600px; /* Fuerza un ancho mínimo para activar el scroll */
+  border-collapse: collapse;
+}
+
+/* --- MENÚ DESPLEGABLE (SIDEBAR) --- */
+/* Botón de hamburguesa (oculto en escritorio) */
+.menu-toggle-btn {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1001;
+  background: var(--primary); /* Ajusta a tu color primario */
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Estilos para móviles */
+@media (max-width: 768px) {
+  /* Mostrar botón de menú */
+  .menu-toggle-btn {
+    display: block;
+  }
+
+  /* El Sidebar debe estar oculto por defecto o desplazado */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 250px;
+    transform: translateX(-100%); /* Oculto a la izquierda */
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+    background-color: #1a1a1a; /* O el color de tu sidebar */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+  }
+
+  /* Clase para mostrar el sidebar cuando está activo */
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  /* Overlay oscuro cuando el menú está abierto */
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    display: none;
+  }
+  
+  .sidebar-overlay.open {
+    display: block;
+  }
+  
+  /* Ajuste del contenido principal para que no quede debajo del botón */
+  .main-content {
+    padding-top: 4rem; 
+  }
+}
+
 .table-container {
     width: 100%;
     overflow-x: auto;

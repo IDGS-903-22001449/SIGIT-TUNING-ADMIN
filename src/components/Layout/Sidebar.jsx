@@ -3,7 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 import { Icons } from '../Icons/Icons';
 import './Sidebar.css';
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, onClose }) => {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
@@ -11,6 +11,12 @@ const Sidebar = () => {
     if (confirm('¿Estás seguro de cerrar sesión?')) {
       logout();
       navigate('/login');
+    }
+  };
+
+  const handleLinkClick = () => {
+    if (onClose) {
+      onClose();
     }
   };
 
@@ -27,7 +33,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
       <div className="sidebar-header">
         <div className="sidebar-logo">
           <Icons.Package />
@@ -41,6 +47,7 @@ const Sidebar = () => {
             key={item.path}
             to={item.path}
             className={({ isActive }) => `sidebar-item ${isActive ? 'active' : ''}`}
+            onClick={handleLinkClick}
           >
             <span className="sidebar-icon">
               <item.icon />

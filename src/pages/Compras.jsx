@@ -55,7 +55,7 @@ const Compras = () => {
         <h1 className="page-title">Historial de Compras</h1>
       </div>
 
-      <div className="table-container" style={{backgroundColor: '#1e1e1e', borderRadius: '12px', border: '1px solid #333', overflow: 'hidden'}}>
+      <div className="table-responsive" style={{backgroundColor: '#1e1e1e', borderRadius: '12px', border: '1px solid #333'}}>
         <table style={{width: '100%', borderCollapse: 'collapse', color: 'white'}}>
           <thead style={{backgroundColor: '#252525'}}>
             <tr>

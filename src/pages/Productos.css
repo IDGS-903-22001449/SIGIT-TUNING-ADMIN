@@ -63,16 +63,52 @@
 .filter-tabs {
     display: flex;
     gap: 10px;
-    flex-wrap: wrap;
     margin-bottom: 25px;
-    overflow-x: auto;
     padding-bottom: 10px;
+    overflow-x: auto;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE 10+ */
+}
+
+.filter-tabs::-webkit-scrollbar {
+    display: none; /* Chrome/Safari/Webkit */
+}
+
+
+
+
+
+/* Control de visibilidad Responsiva */
+.mobile-only {
+    display: none;
+}
+
+.desktop-only {
+    display: flex;
+}
+
+@media (max-width: 768px) {
+    .mobile-only {
+        display: block;
+    }
+
+    .desktop-only {
+        display: none !important;
+    }
+    
+    .filter-tabs {
+        display: none; /* Asegura que se oculten los tabs en móvil */
+    }
 }
 
 .filter-tab-wrapper {
     display: flex;
     align-items: center;
     gap: 5px;
+    flex-shrink: 0;
 }
 
 .filter-tab {
@@ -114,6 +150,91 @@
 
 .delete-category-btn:hover {
     background: rgba(244, 67, 54, 0.1);
+}
+
+/* Estilos para el Select de Categorías (Móvil) */
+.mobile-category-select {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.select-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.mobile-delete-btn {
+    background: #2a2a2a;
+    border: 1px solid #f44336;
+    color: #f44336;
+    width: 46px;
+    height: 46px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.mobile-delete-btn:active {
+    background: #f44336;
+    color: white;
+}
+
+.mobile-category-select label {
+    display: block;
+    margin-bottom: 8px;
+    color: #b0b0b0;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.category-select {
+    width: 100%;
+    padding: 12px 40px 12px 15px;
+    background-color: #2a2a2a;
+    border: 1px solid #404040;
+    border-radius: 8px;
+    color: #ffffff; /* Asegurar texto blanco */
+    font-size: 16px;
+    appearance: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.category-select option {
+    background-color: #2a2a2a;
+    color: #ffffff;
+}
+
+.category-select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(0, 188, 212, 0.1);
+}
+
+.select-arrow {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+}
+
+.select-arrow svg {
+    width: 20px;
+    height: 20px;
 }
 
 /* ===== TABLA DE PRODUCTOS ===== */
@@ -536,10 +657,85 @@ table tbody tr:hover {
     }
 
     .action-buttons {
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: flex-end;
     }
 
     .modal-content {
         max-width: 95vw;
+    }
+
+    /* --- CARD VIEW FOR MOBILE TABLES --- */
+    .table-responsive table, 
+    .table-responsive thead, 
+    .table-responsive tbody, 
+    .table-responsive th, 
+    .table-responsive td, 
+    .table-responsive tr { 
+        display: block; 
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    .table-responsive thead tr { 
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .table-responsive tr { 
+        border: 1px solid #333; 
+        margin-bottom: 15px; 
+        background: #252525;
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+    .table-responsive td { 
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #333; 
+        position: relative;
+        padding-left: 50% !important; 
+        text-align: right;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .table-responsive td:last-child {
+        border-bottom: 0;
+    }
+
+    .table-responsive td:before { 
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+        width: 45%; 
+        padding-right: 10px; 
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        color: var(--primary);
+        content: attr(data-label);
+    }
+
+    /* Special handling for Image column in card view */
+    .table-responsive td[data-label="Img"] {
+        padding-left: 10px !important;
+        justify-content: center;
+        border-bottom: none;
+        height: auto;
+    }
+    
+    .table-responsive td[data-label="Img"]:before {
+        display: none;
+    }
+
+    .prod-img-cell {
+        justify-content: center;
     }
 }

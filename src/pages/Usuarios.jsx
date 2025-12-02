@@ -238,7 +238,7 @@ const Usuarios = () => {
           </p>
         </div>
       ) : (
-        <div className="table-container">
+        <div className="table-responsive">
           <table>
             <thead>
               <tr>
@@ -255,7 +255,7 @@ const Usuarios = () => {
             <tbody>
               {usuariosFiltrados.map((usuario) => (
                 <tr key={usuario.userID}>
-                  <td>
+                  <td data-label="Avatar">
                     <div className="avatar-cell">
                       {usuario.avatarURL ? (
                         <img src={usuario.avatarURL} alt={usuario.nombre} className="avatar-img" />
@@ -266,12 +266,12 @@ const Usuarios = () => {
                       )}
                     </div>
                   </td>
-                  <td>
+                  <td data-label="Nombre">
                     <strong>{usuario.nombre}</strong>
                   </td>
-                  <td>{usuario.email}</td>
-                  <td>{usuario.telefono || '-'}</td>
-                  <td>
+                  <td data-label="Email">{usuario.email}</td>
+                  <td data-label="Teléfono">{usuario.telefono || '-'}</td>
+                  <td data-label="Rol">
                     <span className={`role-badge ${usuario.rol === 'Admin' ? 'admin' : 'user'}`} 
                           style={{
                               padding: '4px 8px', 
@@ -284,15 +284,15 @@ const Usuarios = () => {
                       {usuario.rol || 'Usuario'}
                     </span>
                   </td>
-                  <td>
+                  <td data-label="Registrado">
                     {new Date(usuario.fechaRegistro).toLocaleDateString('es-MX')}
                   </td>
-                  <td>
+                  <td data-label="Estado">
                     <span className={`status-badge ${usuario.activo ? 'active' : 'inactive'}`}>
                       {usuario.activo ? 'Activo' : 'Inactivo'}
                     </span>
                   </td>
-                  <td>
+                  <td data-label="Acciones">
                     <div className="action-buttons">
                       <button
                         className="btn-icon edit"
