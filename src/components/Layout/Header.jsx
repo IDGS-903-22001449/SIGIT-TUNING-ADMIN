@@ -7,11 +7,7 @@ const Header = () => {
 
   return (
     <header className="header">
-      <div className="header-search">
-        <div className="search-icon">
-        </div>
-        
-      </div>
+      
 
       <div className="header-actions">
         
