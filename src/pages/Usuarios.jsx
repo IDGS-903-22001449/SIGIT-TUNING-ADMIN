@@ -341,6 +341,7 @@ const Usuarios = () => {
                   accept="image/*"
                   onChange={handleImageChange}
                   className="file-input"
+                  disabled
                 />
                 <small>JPG, PNG o GIF. Máximo 5MB</small>
               </div>
@@ -354,6 +355,7 @@ const Usuarios = () => {
                   onChange={handleInputChange}
                   required
                   maxLength="100"
+                  disabled
                 />
               </div>
 
@@ -365,6 +367,7 @@ const Usuarios = () => {
                   value={formData.telefono}
                   onChange={handleInputChange}
                   maxLength="20"
+                  disabled
                 />
               </div>
 
